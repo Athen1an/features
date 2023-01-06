@@ -8,9 +8,41 @@
     <artifactId>features</artifactId>
     <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
+    <modules>
+        <module>validation</module>
+    </modules>
+
+    <properties>
+        <!-- Build -->
+        <java.version>17</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+
+        <!-- Spring -->
+        <spring-boot-dependencies.verion>3.0.1</spring-boot-dependencies.verion>
+
+        <!-- Util -->
+        <lombok.version>1.18.24</lombok.version>
+
+        <!-- Other -->
+        <problem-spring-web.version>0.27.0</problem-spring-web.version>
+
+        <!-- Plugin -->
+        <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
+
+        <!-- athena -->
+        <athena-library.version>0.0.1-SNAPSHOT</athena-library.version>
+    </properties>
 
     <dependencyManagement>
         <dependencies>
+            <!-- athena -->
+            <dependency>
+                <groupId>ru.athena</groupId>
+                <artifactId>logging</artifactId>
+                <version>${athena-library.version}</version>
+            </dependency>
+
             <!-- Spring -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
