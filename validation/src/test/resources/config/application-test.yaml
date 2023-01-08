@@ -1,0 +1,6 @@
+logging:
+  level:
+    root: INFO
+    ru.athena: DEBUG
+  pattern:
+    console: "%boldMagenta(%d{yyyy-MM-dd HH:mm:ss:SSS}) %green([%thread]) %highlight(%-5level) %cyan(%logger{15}.%M\\(\\)) - %boldYellow(%msg %n)"
