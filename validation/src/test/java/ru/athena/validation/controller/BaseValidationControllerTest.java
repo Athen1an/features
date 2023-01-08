@@ -9,10 +9,10 @@ import ru.athena.validation.AbstractIntegrationTest;
 import ru.athena.validation.model.Address;
 import ru.athena.validation.model.User;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-class BaseValidControllerTest extends AbstractIntegrationTest {
+class BaseValidationControllerTest extends AbstractIntegrationTest {
 
     @Test
     void validUserTest() throws Exception {
@@ -20,7 +20,7 @@ class BaseValidControllerTest extends AbstractIntegrationTest {
                 .setFirstName(TestRandomUtil.randomString())
                 .setLastName(TestRandomUtil.randomString());
 
-        mockMvc.perform(post("/feature/validation/base/user")
+        mockMvc.perform(put("/feature/validation/base/user")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(TestMappingUtil.convertObjectToJsonString(user)))
                 .andExpect(status().isCreated());
@@ -32,14 +32,14 @@ class BaseValidControllerTest extends AbstractIntegrationTest {
                 .setFirstName(TestRandomUtil.randomString())
                 .setLastName(StringUtil.BLANK_STRING);
 
-        mockMvc.perform(post("/feature/validation/base/user")
+        mockMvc.perform(put("/feature/validation/base/user")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(TestMappingUtil.convertObjectToJsonString(user)))
                 .andExpect(status().isBadRequest());
     }
 
     @Test
-    void invalidUserAddressTest() throws Exception {
+    void notValidateInvalidUserAddressWithoutGroupTest() throws Exception {
         User user = new User()
                 .setFirstName(TestRandomUtil.randomString())
                 .setLastName(TestRandomUtil.randomString())
@@ -48,9 +48,9 @@ class BaseValidControllerTest extends AbstractIntegrationTest {
                         .setFullAddress(StringUtil.BLANK_STRING)
                 );
 
-        mockMvc.perform(post("/feature/validation/base/user")
+        mockMvc.perform(put("/feature/validation/base/user")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(TestMappingUtil.convertObjectToJsonString(user)))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isCreated());
     }
 }
